@@ -1,3 +1,4 @@
+from database.db_manager import DatabaseManager
 import streamlit as st
 
 st.title("Dashboard")
@@ -55,24 +56,38 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- Hardcoded summary data ---
-jumlah_hutang = 9282.25
-hutang = 550.00
-komitmen = 5889.75
-tunggakan = 2842.50
+# --- Connect to database and calculate real totals ---
+db = DatabaseManager()
 
-baki_bersih = 6599.62
-tetap = 3599.62
-tambahan = 2500.00
-lain_lain = 500.00
+hutang = db.get_total_hutang("saya_hutang")
+komitmen = db.get_total_komitmen()
+tunggakan = db.get_total_tunggakan()
+jumlah_hutang = hutang + komitmen + tunggakan  # auto-calculated, not hardcoded!
 
+tetap = db.get_total_pendapatan("Tetap")
+tambahan = db.get_total_pendapatan("Tambahan")
+lain_lain = db.get_total_pendapatan("Lain-lain")
+baki_bersih = tetap + tambahan + lain_lain  # also auto-calculated
+
+# --- Build the "Apa belum dibayar" list from real unpaid bills ---
+from datetime import datetime
+
+def format_due_date(due_date_str):
+    # Converts '2026-08-31' into 'Due: 31 August 2026'
+    dt = datetime.strptime(due_date_str, "%Y-%m-%d")
+    return f"Due: {dt.strftime('%d %B %Y')}"
+
+def days_remaining(due_date_str):
+    dt = datetime.strptime(due_date_str, "%Y-%m-%d").date()
+    delta = (dt - datetime.today().date()).days
+    if delta < 0:
+        return f"{abs(delta)} hari lewat"
+    return f"{delta} hari lagi"
+
+raw_bills = db.get_upcoming_bills(limit=6)
 bills = [
-    ("House Loan", "Due: 31 August 2026", 1650.00, "7 hari lagi"),
-    ("Credit Card", "Due: 13 September 2026", 560.95, "14 hari lagi"),
-    ("Internet", "Due: 13 September 2026", 104.92, "14 hari lagi"),
-    ("TNB", "Due: 31 August 2026", 240.63, "7 hari lagi"),
-    ("Car Services", "Due: 31 August 2026", 350.00, "7 hari lagi"),
-    ("Road Tax & Insurances", "Due: 31 August 2026", 376.85, "7 hari lagi"),
+    (row["name"], format_due_date(row["due_date"]), row["amount"], days_remaining(row["due_date"]))
+    for row in raw_bills
 ]
 
 # --- Row 1: red and green cards, full width, side by side ---
