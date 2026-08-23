@@ -1,0 +1,21 @@
+#Run this on Terminal every time there is an content update in the repo:
+git add .
+git commit -m "your comment"
+git push
+
+#change directory
+cd kirahutang_project
+
+#Create virtual environment (env)
+python -m venv venv
+
+#Activate env
+venv\Scripts\activate
+
+#Run the app
+streamlit run Home.py
+
+Each time you want to work on it:
+cd kirahutang_streamlit
+venv\Scripts\activate
+streamlit run Home.py

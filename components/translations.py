@@ -1,0 +1,62 @@
+TRANSLATIONS = {
+    "en": {
+        "dashboard": "Dashboard",
+        "jumlah_hutang": "Total Debt",
+        "perlu_dibayar": "Needs to be paid",
+        "baki_bersih": "Net Balance",
+        "pendapatan_anda": "Your Income",
+        "hutang": "Debt",
+        "saya_hutang": "I Owe",
+        "orang_hutang": "Owed to Me",
+        "komitmen": "Commitments",
+        "tunggakan": "Overdue",
+        "tetap": "Fixed",
+        "tambahan": "Additional",
+        "lain_lain": "Others",
+        "berubah": "Flexible",
+        "apa_belum_dibayar": "What's Unpaid",
+        "bulan_ini": "This Month",
+        "belanja_bulan_ini": "Spending This Month",
+        "pendapatan": "Income",
+        "belanja": "Spending",
+        "jumlah_belanja": "Total Spending",
+        "history": "History",
+        "analytics": "Analytics",
+        "jumlah_komitmen_bulanan": "Total Monthly Commitments",
+        "belum_dibayar": "Unpaid",
+        "jumlah_tunggakan_semasa": "Current Overdue",
+    },
+    "ms": {
+        "dashboard": "Dashboard",
+        "jumlah_hutang": "Jumlah Hutang",
+        "perlu_dibayar": "Perlu dibayar",
+        "baki_bersih": "Baki Bersih",
+        "pendapatan_anda": "Pendapatan Anda",
+        "hutang": "Hutang",
+        "saya_hutang": "Saya Hutang",
+        "orang_hutang": "Orang Hutang",
+        "komitmen": "Komitmen",
+        "tunggakan": "Tunggakan",
+        "tetap": "Tetap",
+        "tambahan": "Tambahan",
+        "lain_lain": "Lain-lain",
+        "berubah": "Berubah",
+        "apa_belum_dibayar": "Apa Belum Dibayar",
+        "bulan_ini": "Bulan Ini",
+        "belanja_bulan_ini": "Belanja Bulan Ini",
+        "pendapatan": "Pendapatan",
+        "belanja": "Belanja",
+        "jumlah_belanja": "Jumlah Belanja",
+        "history": "Sejarah",
+        "analytics": "Analitik",
+        "jumlah_komitmen_bulanan": "Jumlah Komitmen Bulanan",
+        "belum_dibayar": "Belum Dibayar",
+        "jumlah_tunggakan_semasa": "Jumlah Tunggakan Semasa",
+    }
+}
+
+def t(key):
+    """Look up the current text for `key` in whichever language is selected."""
+    import streamlit as st
+    lang = st.session_state.get("lang", "ms")  # defaults to Bahasa Melayu
+    return TRANSLATIONS.get(lang, {}).get(key, key)

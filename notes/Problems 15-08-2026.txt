@@ -1,0 +1,23 @@
+
+1. I click 'Mark paid' on Tunggakan, and it appear in Komitmen.  I want it disappear from Tunggakan and not appear on Komitmen or anywhere but keep in History page.
+
+2. Round chart in Belanja page, beside 'Jumlah belanja' card.  Filter by category seem to be error.
+
+4. Put colour on chart according to the category.
+
+Chart colour:
+- Hutang = Heart Red
+- Komitmen = Dark Red
+- Pendapatan = Green
+- Tunggakan = Amber
+
+Any suggestion what to put on Analytics page beside chart?
+
+5. Card color on Komitmen, Tunggakan, Hutang and Belanja make it same as "Apa belum dibayar" colour.
+
+6. Change this website change between English and Bahasa Melayu?  Is it hard and complex to do it?
+
+
+
+
+
